@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Handle, Position } from "reactflow";
 import BaseNode from "../atom/BaseNode";
 
-export const TextNode = ({ id, data }) => {
+export const TextNode = ({ id, data, ...rest }) => {
   const [currText, setCurrText] = useState(data?.text || "{{input}}");
 
   const handleTextChange = (e) => {
@@ -20,6 +20,7 @@ export const TextNode = ({ id, data }) => {
       description="Text Node"
       nodeIcon=""
       id={id}
+      {...rest}
       style={{ width: "auto", minWidth: "200px", maxWidth: "400px" }}
     >
       <div className="flex flex-col gap-2 justify-start p-2">

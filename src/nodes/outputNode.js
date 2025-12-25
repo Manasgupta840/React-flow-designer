@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Handle, Position } from "reactflow";
 import BaseNode from "../atom/BaseNode";
 
-export const OutputNode = ({ id, data }) => {
+export const OutputNode = ({ id, data, ...rest }) => {
   const [currName, setCurrName] = useState(
     data?.outputName || id.replace("customOutput-", "output_")
   );
@@ -25,12 +25,9 @@ export const OutputNode = ({ id, data }) => {
       description="Output Node"
       nodeIcon=""
       id={id}
+      {...rest}
     >
       <div>
-        <label>
-          Name:
-          <input type="text" value={currName} onChange={handleNameChange} />
-        </label>
         <label>
           Type:
           <select value={outputType} onChange={handleTypeChange}>

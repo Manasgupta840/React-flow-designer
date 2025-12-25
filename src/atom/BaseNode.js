@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useStore } from "../store";
 import "./baseNode.css";
 import { twMerge } from "tailwind-merge";
+import { NodeResizer } from "reactflow";
 const BaseNode = ({
   nodeName,
   label,
@@ -11,16 +12,23 @@ const BaseNode = ({
   id,
   style,
   className,
+  selected,
 }) => {
   const [isEditingLabel, setIsEditingLabel] = useState(false);
   const { updateNodeField } = useStore();
 
   const baseContainerClassNames = twMerge(
-    "w-[13.75rem] bg-white border border-gray-300 rounded-lg shadow-md font-sans",
+    "min-w-[13.75rem] bg-white border border-gray-300 relative rounded-lg shadow-md font-sans",
     className || ""
   );
   return (
     <div className={baseContainerClassNames} style={style}>
+      <NodeResizer
+        color="#2563eb"
+        isVisible={selected}
+        minWidth={100}
+        minHeight={30}
+      />
       {/* Header */}
       <div className="node-header">
         <div className="node-title">

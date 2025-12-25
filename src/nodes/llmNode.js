@@ -3,7 +3,7 @@
 import { Handle, Position } from "reactflow";
 import BaseNode from "../atom/BaseNode";
 
-export const LLMNode = ({ id, data }) => {
+export const LLMNode = ({ id, data, ...rest }) => {
   return (
     <BaseNode
       nodeName="LLM"
@@ -11,8 +11,8 @@ export const LLMNode = ({ id, data }) => {
       description="LLM Node"
       nodeIcon=""
       id={id}
+      {...rest}
     >
-
       {/* Handles */}
       <Handle type="source" position={Position.Right} id={`${id}-response`} />
       <Handle
