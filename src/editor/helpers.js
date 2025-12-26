@@ -80,3 +80,58 @@ export const deserialize = (text = "", allNodes) => {
 
   return [{ type: "paragraph", children }];
 };
+
+export const onKeyDownHandler = (event, editor, position) => {
+  const { selection } = editor;
+  // 1. Enter key: Prevent splitting expression, insert newline if not suggestion selection
+  if (event.key === "Enter") {
+    if (position) {
+      // Let the portal handle it if suggestion list is open?
+      // Actually SuggestionList doesn't listen to keyboard yet,
+      // but if we preventDefault here, handleSelect won't trigger if it was keyboard driven.
+      // For now, let's just make sure we don't split the node.
+      event.preventDefault();
+      return;
+    }
+
+    // If cursor is inside an expression node, prevent splitting
+    const [match] = Editor.nodes(editor, {
+      match: (n) => n.type === "expression",
+    });
+    if (match) {
+      event.preventDefault();
+      Transforms.move(editor, { unit: "offset", distance: 1 }); // Just exit
+      return;
+    }
+  }
+
+  // 2. Arrow Right: Fix getting stuck in inline node
+  if (event.key === "ArrowRight") {
+    if (selection && Range.isCollapsed(selection)) {
+      const [match] = Editor.nodes(editor, {
+        match: (n) => n.type === "expression",
+      });
+      if (match) {
+        const [, path] = match;
+        const end = Editor.end(editor, path);
+        if (Range.equals(selection, { anchor: end, focus: end })) {
+          // We are at the end of the inline node.
+          // Force move 1 unit right to exit it.
+          event.preventDefault();
+          Transforms.move(editor, { unit: "offset", distance: 1 });
+        }
+      } else {
+        // Check if the next node is an expression to enter it immediately
+        const nextPoint = Editor.after(editor, selection);
+        if (nextPoint) {
+          const [, path] = Editor.node(editor, nextPoint);
+          const [parent] = Editor.parent(editor, path);
+          if (parent.type === "expression") {
+            event.preventDefault();
+            Transforms.select(editor, nextPoint);
+          }
+        }
+      }
+    }
+  }
+};

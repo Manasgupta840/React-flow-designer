@@ -1,7 +1,12 @@
 import { useMemo, useState, useEffect } from "react";
 import { Slate, Editable, withReact, ReactEditor } from "slate-react";
 import { createEditor, Range, Editor, Transforms } from "slate";
-import { serialize, deserialize, withExpressions } from "./helpers";
+import {
+  serialize,
+  deserialize,
+  withExpressions,
+  onKeyDownHandler,
+} from "./helpers";
 import Element from "./Element";
 import SuggestionList from "./SuggestionList";
 import { useStore } from "../store";
@@ -42,7 +47,7 @@ export default function ExpressionEditor({ currentNodeId, inputKeyLabel }) {
       }
     }
     setPosition(null);
-  }, [editor.selection]);
+  }, [editor, editor.selection]);
 
   const handleSelect = ({ label, id, key }) => {
     const text = `${label}.${key}`;
@@ -93,12 +98,13 @@ export default function ExpressionEditor({ currentNodeId, inputKeyLabel }) {
     >
       <Editable
         renderElement={(props) => <Element {...props} />}
-        className="nodrag hover:cursor-text p-2 border rounded"
+        className="nodrag hover:cursor-text p-2 border rounded placeholder:text-xs placeholder:italic placeholder:text-gray-400"
         placeholder="Type here... Use {{ to start expression"
         onInput={(e) => {
           e.target.style.height = "auto";
           e.target.style.height = `${e.target.scrollHeight}px`;
         }}
+        onKeyDown={(event) => onKeyDownHandler(event, editor, position)}
         autoFocus
       />
       {position && (

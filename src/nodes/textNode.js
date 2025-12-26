@@ -14,7 +14,13 @@ export const TextNode = ({ id, data, ...rest }) => {
       nodeIcon=""
       id={id}
       {...rest}
-      style={{ width: "auto", minWidth: "200px", maxWidth: "400px" }}
+      style={{
+        width: "auto",
+        minWidth: "250px",
+        maxWidth: "400px",
+        height: "auto",
+        minHeight: "50px",
+      }}
     >
       <div className="flex flex-col gap-2 justify-start p-2">
         <Label label="Text" />
