@@ -13,13 +13,15 @@ export const SubmitButton = () => {
       edges,
     };
     const response = await nodeServices.addPipeline(body);
-    const message = `Your pipeline contains ${response.num_nodes} nodes and ${
-      response.num_edges
-    } edges. 
+    if (response) {
+      const message = `Your pipeline contains ${
+        response?.num_nodes
+      } nodes and ${response?.num_edges} edges. 
 It ${
-      response.is_dag ? "forms" : "does not form"
-    } a directed acyclic graph (DAG).`;
-    toast.success(message);
+        response?.is_dag ? "forms" : "does not form"
+      } a directed acyclic graph (DAG).`;
+      toast.success(message);
+    }
   };
 
   return (

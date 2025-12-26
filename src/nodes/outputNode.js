@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Handle, Position } from "reactflow";
+import { FileUp } from "lucide-react";
 import BaseNode from "../atom/BaseNode";
 import Label from "../atom/Label";
 
@@ -17,7 +18,7 @@ export const OutputNode = ({ id, data, ...rest }) => {
       nodeName="Output"
       label={data?.label || "Output Node"}
       description="Output Node"
-      nodeIcon=""
+      nodeIcon={<FileUp className="w-4 h-4" />}
       id={id}
       {...rest}
     >

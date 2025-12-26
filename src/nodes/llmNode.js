@@ -1,6 +1,7 @@
 // llmNode.js
 
 import { Handle, Position } from "reactflow";
+import { Sparkles } from "lucide-react";
 import BaseNode from "../atom/BaseNode";
 
 export const LLMNode = ({ id, data, ...rest }) => {
@@ -9,7 +10,7 @@ export const LLMNode = ({ id, data, ...rest }) => {
       nodeName="LLM"
       label={data?.label || "LLM Node"}
       description="LLM Node"
-      nodeIcon=""
+      nodeIcon={<Sparkles className="w-4 h-4" />}
       id={id}
       {...rest}
     >

@@ -1,6 +1,7 @@
 // textNode.js
 
 import { Handle, Position } from "reactflow";
+import { MessageSquareText } from "lucide-react";
 import BaseNode from "../atom/BaseNode";
 import ExpressionEditor from "../editor/ExpressionEditor";
 import Label from "../atom/Label";
@@ -11,7 +12,7 @@ export const TextNode = ({ id, data, ...rest }) => {
       nodeName="Text"
       label={data?.label || "Text Node"}
       description="Text Node"
-      nodeIcon=""
+      nodeIcon={<MessageSquareText className="w-4 h-4" />}
       id={id}
       {...rest}
       style={{

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Handle, Position } from "reactflow";
+import { FileText } from "lucide-react";
 import BaseNode from "../atom/BaseNode";
 import { useStore } from "../store";
 import Label from "../atom/Label";
@@ -25,7 +26,7 @@ export const InputNode = ({ id, data, ...rest }) => {
       nodeName="Input"
       label={data?.label || "Input Node"}
       description="Input Node"
-      nodeIcon=""
+      nodeIcon={<FileText className="w-4 h-4" />}
       id={id}
       {...rest}
     >
