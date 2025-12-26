@@ -1,6 +1,5 @@
-import { PipelineToolbar } from "./toolbar";
-import { PipelineUI } from "./ui";
-import { SubmitButton } from "./submit";
+import { PipelineToolbar } from "./layout/toolbar";
+import { PipelineUI } from "./layout/ui";
 import { ReactFlowProvider } from "@xyflow/react";
 import { ToastContainer } from "react-toastify";
 

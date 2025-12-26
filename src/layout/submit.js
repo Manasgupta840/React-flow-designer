@@ -1,8 +1,8 @@
 // submit.js
 
 import { toast } from "react-toastify";
-import { nodeServices } from "./services/nodesServices";
-import { useStore } from "./store";
+import { nodeServices } from "../services/nodesServices";
+import { useStore } from "../store";
 
 export const SubmitButton = () => {
   const { nodes, edges } = useStore();

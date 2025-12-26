@@ -1,6 +1,6 @@
 // toolbar.js
 
-import { DraggableNode } from "./draggableNode";
+import { DraggableNode } from "../atom/draggableNode";
 import { SubmitButton } from "./submit";
 
 export const PipelineToolbar = () => {

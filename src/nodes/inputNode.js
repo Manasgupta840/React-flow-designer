@@ -8,10 +8,8 @@ import Label from "../atom/Label";
 
 export const InputNode = ({ id, data, ...rest }) => {
   const { updateNodeOutput } = useStore();
-  const [currText, setCurrText] = useState(
-    data?.inputName || id.replace("customInput-", "input_")
-  );
-  const [inputType, setInputType] = useState(data.inputType || "Text");
+  const [currText, setCurrText] = useState(data?.output?.inputValue);
+  const [inputType, setInputType] = useState(data?.inputType || "Text");
 
   const handleTextChange = (e) => {
     setCurrText(e.target.value);
