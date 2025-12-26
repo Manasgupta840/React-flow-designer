@@ -3,15 +3,19 @@
 import { useState } from "react";
 import { Handle, Position } from "reactflow";
 import BaseNode from "../atom/BaseNode";
+import { useStore } from "../store";
+import Label from "../atom/Label";
 
 export const InputNode = ({ id, data, ...rest }) => {
-  const [currName, setCurrName] = useState(
+  const { updateNodeOutput } = useStore();
+  const [currText, setCurrText] = useState(
     data?.inputName || id.replace("customInput-", "input_")
   );
   const [inputType, setInputType] = useState(data.inputType || "Text");
 
-  const handleNameChange = (e) => {
-    setCurrName(e.target.value);
+  const handleTextChange = (e) => {
+    setCurrText(e.target.value);
+    updateNodeOutput(id, { inputValue: e.target.value });
   };
 
   const handleTypeChange = (e) => {
@@ -27,15 +31,29 @@ export const InputNode = ({ id, data, ...rest }) => {
       id={id}
       {...rest}
     >
-      <div className="node-title">
-        <label>
-          Type:
-          <select value={inputType} onChange={handleTypeChange}>
-            <option value="Text">Text</option>
-            <option value="File">File</option>
-          </select>
-        </label>
+      <div>
+        <Label label="Type:" />
+        <select
+          value={inputType}
+          onChange={handleTypeChange}
+          className="ml-2 text-sm"
+        >
+          <option value="Text">Text</option>
+          <option value="File">File</option>
+        </select>
       </div>
+      <textarea
+        className="w-full min-h-[40px] mt-2 p-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none overflow-hidden"
+        value={currText}
+        onChange={handleTextChange}
+        rows={1}
+        placeholder="Enter input value"
+        style={{ height: "auto" }}
+        onInput={(e) => {
+          e.target.style.height = "auto";
+          e.target.style.height = `${e.target.scrollHeight}px`;
+        }}
+      />
       <Handle type="source" position={Position.Right} id={`${id}-value`} />
     </BaseNode>
   );

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Handle, Position } from "reactflow";
 import BaseNode from "../atom/BaseNode";
+import Label from "../atom/Label";
 
 export const OutputNode = ({ id, data, ...rest }) => {
   const [currName, setCurrName] = useState(
@@ -28,15 +29,16 @@ export const OutputNode = ({ id, data, ...rest }) => {
       {...rest}
     >
       <div>
-        <label>
-          Type:
-          <select value={outputType} onChange={handleTypeChange}>
-            <option value="Text">Text</option>
-            <option value="File">Image</option>
-          </select>
-        </label>
+        <Label label="Type:" />
+        <select
+          value={outputType}
+          onChange={handleTypeChange}
+          className="ml-2 text-sm"
+        >
+          <option value="Text">Text</option>
+          <option value="File">File</option>
+        </select>
       </div>
-
       <Handle type="target" position={Position.Left} id={`${id}-value`} />
     </BaseNode>
   );

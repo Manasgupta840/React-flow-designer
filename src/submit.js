@@ -23,16 +23,12 @@ It ${
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
+    <button
+      type="submit"
+      onClick={onSubmit}
+      className="bg-blue-500 hover:bg-blue-600 text-white font-bold px-4 h-10 rounded"
     >
-      <button type="submit" onClick={onSubmit}>
-        Submit
-      </button>
-    </div>
+      <span>Submit</span>
+    </button>
   );
 };

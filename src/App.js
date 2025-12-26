@@ -10,7 +10,6 @@ function App() {
       <ReactFlowProvider>
         <PipelineToolbar />
         <PipelineUI />
-        <SubmitButton />
       </ReactFlowProvider>
       <ToastContainer />
     </div>

@@ -15,6 +15,8 @@
     "react-scripts": "5.0.1",
     "react-toastify": "^11.0.5",
     "reactflow": "^11.8.3",
+    "slate": "^0.120.0",
+    "slate-react": "^0.120.0",
     "tailwind-merge": "^3.4.0",
     "tailwindcss": "^3.4.0",
     "web-vitals": "^2.1.4"

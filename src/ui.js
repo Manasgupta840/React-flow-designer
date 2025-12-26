@@ -12,6 +12,7 @@ import { OutputNode } from "./nodes/outputNode";
 import { TextNode } from "./nodes/textNode";
 
 import "reactflow/dist/style.css";
+import { getInitNodeData } from "./helpers/pipeline.helpers";
 
 const gridSize = 20;
 const proOptions = { hideAttribution: true };
@@ -45,11 +46,6 @@ export const PipelineUI = () => {
     onConnect,
   } = useStore(selector, shallow);
 
-  const getInitNodeData = (nodeID, type) => {
-    let nodeData = { id: nodeID, nodeType: `${type}` };
-    return nodeData;
-  };
-
   const onDrop = useCallback(
     (event) => {
       event.preventDefault();
@@ -60,6 +56,7 @@ export const PipelineUI = () => {
           event.dataTransfer.getData("application/reactflow")
         );
         const type = appData?.nodeType;
+        const label = appData?.label;
 
         // check if the dropped element is valid
         if (typeof type === "undefined" || !type) {
@@ -76,13 +73,14 @@ export const PipelineUI = () => {
           id: nodeID,
           type,
           position,
-          data: getInitNodeData(nodeID, type),
+          data: getInitNodeData(nodeID, type, label),
         };
+        console.log(newNode);
 
         addNode(newNode);
       }
     },
-    [reactFlowInstance]
+    [addNode, getNodeID, reactFlowInstance]
   );
 
   const onDragOver = useCallback((event) => {
